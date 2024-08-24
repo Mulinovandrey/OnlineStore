@@ -1,0 +1,29 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+  {% if user.profile %}
+
+  <div class="grid p-10 grid-cols-1 lg:grid-cols-3 sm:grid-cols-1">
+    <div class="rounded shadows-lg">
+      <div>
+        {% if user.profile.image %}
+          <img class="h-18 w-18" src="{{ user.profile.image.url }}" alt="" srcset="">
+        {% endif %}
+      </div>
+      <h1 class="font-bold text-xl m-2">{{ user.username }}</h1>
+    </div>
+  </div>
+  {% else %}
+    <h1 class="font-bold text-xl m-2">FORM Profile</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label class="block text-gray-700 text-md font-bold mb-2">Upload Profile Image</label>
+        <input class="block mt-4" type="file" accept="image/*" name="upload_profile_images" id="upload_profile_images" required>
+        <label class="block text-gray-700 text-md font-bold mb-2">Profile number</label>
+        <input class="shadow appearance-none border rounded py-2 px-3 mr-10 text-gray-700" type="text" placeholder="Your Number" name="contact_number" id="contact_number">
+      </div>
+      <button class="block bg-green-600 text-white p-3 mt-4" type="submit" name="create_profile" value="create_profile"> Create Profile </button>
+    </form>
+  {% endif %}
+{% endblock content %}
